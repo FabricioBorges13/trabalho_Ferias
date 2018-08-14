@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AD7E02C6-F113-4307-9157-E2C03E856F25}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SolidOpsTrabalho.Infra.CSV</RootNamespace>
-    <AssemblyName>SolidOpsTrabalho.Infra.CSV</AssemblyName>
+    <ProjectGuid>{9C533364-1652-40AB-A90A-87BC807FA861}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>teste</RootNamespace>
+    <AssemblyName>teste</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.7.1.1\lib\net45\CsvHelper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,23 +42,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSVService.cs" />
-    <Compile Include="Features\Vendas\VendaGetMap.cs" />
-    <Compile Include="Features\Vendas\VendaSetMap.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
       <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
       <Name>SolidOpsTrabalho.Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Infra.CSV\SolidOpsTrabalho.Infra.CSV.csproj">
+      <Project>{AD7E02C6-F113-4307-9157-E2C03E856F25}</Project>
+      <Name>SolidOpsTrabalho.Infra.CSV</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SolidOpsTrabalho.Infra\SolidOpsTrabalho.Infra.csproj">
-      <Project>{02127427-D867-476E-BA38-077982CA8552}</Project>
+      <Project>{02127427-d867-476e-ba38-077982ca8552}</Project>
       <Name>SolidOpsTrabalho.Infra</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
