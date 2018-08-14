@@ -24,11 +24,9 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         public void TaskLeitura(string folderPath)
         {
             _CSVService = new CSVService();
-            //var lista = new List<>();
+
             var leitura = Task.Run(() => LerArquivos(folderPath));
             leitura.Wait();
-
-           // lista.Add(new );
         }
 
         public void TaskValidarVenda()
@@ -45,8 +43,15 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         private void LerArquivos(string caminho)
         {
-            _CSVService.LeiturasDeDados(caminho).ToList();
+            var list = _CSVService.LeiturasDeDados(caminho);
             TaskValidarVenda();
+            var lista = new List<Venda>();
+
+            foreach (var item in list)
+            {
+                lista.Add(item);
+            }
+           
         }
     }
 }
