@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.7.1.1\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,10 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVService.cs" />
+    <Compile Include="Features\Vendas\VendaGetMap.cs" />
+    <Compile Include="Features\Vendas\VendaSetMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Vendas\" />
+    <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
+      <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
+      <Name>SolidOpsTrabalho.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Infra\SolidOpsTrabalho.Infra.csproj">
+      <Project>{02127427-D867-476E-BA38-077982CA8552}</Project>
+      <Name>SolidOpsTrabalho.Infra</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

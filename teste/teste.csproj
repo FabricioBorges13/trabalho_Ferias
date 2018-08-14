@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CB700DA9-51BB-41B7-8F20-0C0D3C18E915}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SolidOpsTrabalho.Aplicacao</RootNamespace>
-    <AssemblyName>SolidOpsTrabalho.Aplicacao</AssemblyName>
+    <ProjectGuid>{9C533364-1652-40AB-A90A-87BC807FA861}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>teste</RootNamespace>
+    <AssemblyName>teste</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,11 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\Vendas\IVendaService.cs" />
-    <Compile Include="Features\Vendas\VendaTask.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SolidOpsTrabalho.Aplicacao\SolidOpsTrabalho.Aplicacao.csproj">
+      <Project>{CB700DA9-51BB-41B7-8F20-0C0D3C18E915}</Project>
+      <Name>SolidOpsTrabalho.Aplicacao</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
       <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
       <Name>SolidOpsTrabalho.Dominio</Name>
@@ -52,6 +60,10 @@
     <ProjectReference Include="..\SolidOpsTrabalho.Infra.CSV\SolidOpsTrabalho.Infra.CSV.csproj">
       <Project>{AD7E02C6-F113-4307-9157-E2C03E856F25}</Project>
       <Name>SolidOpsTrabalho.Infra.CSV</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Infra\SolidOpsTrabalho.Infra.csproj">
+      <Project>{02127427-d867-476e-ba38-077982ca8552}</Project>
+      <Name>SolidOpsTrabalho.Infra</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
