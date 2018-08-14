@@ -14,6 +14,8 @@ namespace SolidOpsTrabalho.Infra.Dados.Features.Vendas
     {
         public VendaEntityConfiguration()
         {
+            ToTable("TBVenda");
+
             this.HasKey(o => o.Id);
 
             this.Property(o => o.NomeDoCliente).IsRequired();

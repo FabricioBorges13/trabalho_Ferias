@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Context\SolidOpsContext.cs" />
     <Compile Include="Features\Vendas\VendaEntityConfiguration.cs" />
+    <Compile Include="Features\Vendas\VendaRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
