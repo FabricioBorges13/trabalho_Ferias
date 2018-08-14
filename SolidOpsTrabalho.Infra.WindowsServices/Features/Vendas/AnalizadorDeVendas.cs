@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SolidOpsTrabalho.Aplicacao.Features.Vendas;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -33,6 +34,8 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             Console.WriteLine("Hello World!");
+            var task = new VendaTask(CaminhoPastaDeVendas);
+            
         }
 
         private void MoverParaDiretorioDeVendasValidas()

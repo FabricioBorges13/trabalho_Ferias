@@ -51,7 +51,12 @@
     <Compile Include="Features\Vendas\ArquivosVendasService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SolidOpsTrabalho.Aplicacao\SolidOpsTrabalho.Aplicacao.csproj">
+      <Project>{CB700DA9-51BB-41B7-8F20-0C0D3C18E915}</Project>
+      <Name>SolidOpsTrabalho.Aplicacao</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
