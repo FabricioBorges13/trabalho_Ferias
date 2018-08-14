@@ -43,6 +43,15 @@
     <Compile Include="Features\Vendas\VendaTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
+      <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
+      <Name>SolidOpsTrabalho.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Infra.CSV\SolidOpsTrabalho.Infra.CSV.csproj">
+      <Project>{AD7E02C6-F113-4307-9157-E2C03E856F25}</Project>
+      <Name>SolidOpsTrabalho.Infra.CSV</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

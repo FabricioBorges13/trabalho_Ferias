@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SolidOpsTrabalho.Infra.CSV;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,18 +12,27 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 {
     public class VendaTask
     {
-        public VendaTask()
+        public CSVService _CSVService;
+        
+
+        public VendaTask(string folderPath)
         {
-            string diretorio = @"C:\Users\fabri\Desktop\teste";
-            var vendaTask = Task.Run(() => LerArquivos(diretorio));
+            _CSVService = new CSVService();
+            var leitura = Task.Run(() => LerArquivos(folderPath));
+            leitura.Wait();
+
+            //var validar = Task.Run(() => ValidarVendar());
+            //validar.Wait();
         }
 
-        private void LerArquivos(string path)
-        {
-            FileStream caminho = File.OpenRead(path);
-            var arquivos = Directory.GetFiles("*.csv");
+        //private void ValidarVendar()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-            Thread.CurrentThread.Start();
+        private void LerArquivos(string caminho)
+        {
+            _CSVService.LeiturasDeDados(caminho);
         }
     }
 }

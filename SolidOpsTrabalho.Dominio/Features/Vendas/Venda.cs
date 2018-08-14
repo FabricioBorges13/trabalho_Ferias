@@ -14,5 +14,11 @@ namespace SolidOpsTrabalho.Dominio.Features.Vendas
         public double PrecoUnitario { get; set; }
         public double PrecoTotal { get { return Quantidade * PrecoUnitario; } }
         public int Quantidade { get; set; }
+        public CSVService MyProperty { get; set; }
+
+        public void ValidarVenda()
+        {
+
+        }
     }
 }

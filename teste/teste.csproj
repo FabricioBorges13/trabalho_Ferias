@@ -49,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SolidOpsTrabalho.Aplicacao\SolidOpsTrabalho.Aplicacao.csproj">
+      <Project>{CB700DA9-51BB-41B7-8F20-0C0D3C18E915}</Project>
+      <Name>SolidOpsTrabalho.Aplicacao</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
       <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
       <Name>SolidOpsTrabalho.Dominio</Name>
