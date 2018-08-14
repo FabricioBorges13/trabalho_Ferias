@@ -13,8 +13,12 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 
         public TownCrier()
         {
+            var vendas = new AnalizadorDeVendas();
+            vendas.Watch();
+
             _timer = new Timer(1000) { AutoReset = true };
             _timer.Elapsed += (sender, eventArgs) => Console.WriteLine("It is {0} and all is well", DateTime.Now);
+            
         }
         public void Start() { _timer.Start(); }
         public void Stop() { _timer.Stop(); }
@@ -41,8 +45,16 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
                 x.SetServiceName("VendasService");                                  //9
             });                                                             //10
             
-            // var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());  //11
-            //Environment.ExitCode = exitCode;
+            var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());  //11
+            Environment.ExitCode = exitCode;
+        }
+
+        public string returnPath()
+        {
+            string folder = AppDomain.CurrentDomain.BaseDirectory;
+            return folder;
         }
     }
+
+   
 }
