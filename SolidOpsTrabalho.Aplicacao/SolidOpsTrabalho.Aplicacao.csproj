@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Vendas\IVendaService.cs" />
+    <Compile Include="Features\Vendas\VendaService.cs" />
     <Compile Include="Features\Vendas\VendaTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

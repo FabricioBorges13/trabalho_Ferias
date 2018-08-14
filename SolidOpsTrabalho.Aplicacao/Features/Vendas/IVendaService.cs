@@ -11,5 +11,6 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         void Inicializar();
         void Finalizar();
         void Atualizar();
+        
     }
 }
