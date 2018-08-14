@@ -41,7 +41,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
                 throw new Exception();
         }
 
-        private void LerArquivos(string caminho)
+        private List<Venda> LerArquivos(string caminho)
         {
             var list = _CSVService.LeiturasDeDados(caminho);
             TaskValidarVenda();
@@ -51,7 +51,8 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             {
                 lista.Add(item);
             }
-           
+
+            return lista;
         }
     }
 }
