@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 {
@@ -10,12 +13,16 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
     {
         public VendaTask()
         {
-            var vendaTask = Task.Run(() => LerArquivos());
+            string diretorio = @"C:\Users\fabri\Desktop\teste";
+            var vendaTask = Task.Run(() => LerArquivos(diretorio));
         }
 
-        private void LerArquivos()
+        private void LerArquivos(string path)
         {
-            throw new NotImplementedException();
+            FileStream caminho = File.OpenRead(path);
+            var arquivos = Directory.GetFiles("*.csv");
+
+            Thread.CurrentThread.Start();
         }
     }
 }
