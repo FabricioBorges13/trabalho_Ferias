@@ -41,8 +41,8 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
             foreach (FileInfo file in Files)
             {
                 var task = new VendaTask(CaminhoPastaDeVendas +"\\"+ file.Name);
-                // o VendaTask deve retornar se o arquivo é valido ou não
-                // o AnalizadorDeVenddas vai verificar o retorno e salvar no banco o arquivo no seu lugar correto
+                // o VendaTask deve retornar se o arquivo é valido ou não e retornar a lista de Vendas
+                // o AnalizadorDeVenddas vai verificar o retorno e salvar no banco o status do arquivo e a lista de Vendas validass
             }
            
         }
