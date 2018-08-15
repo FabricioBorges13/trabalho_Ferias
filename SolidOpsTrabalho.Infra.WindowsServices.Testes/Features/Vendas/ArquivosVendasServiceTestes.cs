@@ -13,16 +13,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Testes.Features.Vendas
     class ArquivosVendasServiceTestes
     {
 
-        [Test]
-        public void DeveAbrirERodarOServico()
-        {
-            //var servico = new ArquivosVendasService();
-            //servico.Iniciar();
-            var ArquivosVendasService = new ArquivosVendasService();
-            //var caminho = ArquivosVendasService.returnPath();
-            Process.Start(ArquivosVendasService.returnPath() + "SolidOpsTrabalho.Infra.WindowsServices.exe");
-            var process = Process.GetCurrentProcess();
-        }
+        
 
     }
 }
