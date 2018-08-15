@@ -34,10 +34,21 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             Console.WriteLine("Hello World!");
-            var task = new VendaTask(CaminhoPastaDeVendas);
-            
+
+            DirectoryInfo pasta = new DirectoryInfo(CaminhoPastaDeVendas);
+            FileInfo[] Files = pasta.GetFiles("*.csv");
+
+            foreach (FileInfo file in Files)
+            {
+                var task = new VendaTask(CaminhoPastaDeVendas +"\\"+ file.Name);
+                // o VendaTask deve retornar se o arquivo é valido ou não
+                // o AnalizadorDeVenddas vai verificar o retorno e salvar no banco o arquivo no seu lugar correto
+            }
+           
         }
 
+
+        //os 3 metodos abaixo vão para dentro do VendaTask, que vai processar e mover os arquivos
         private void MoverParaDiretorioDeVendasValidas()
         {
             MoverArquivo(CaminhoPastaDeVendasValidas);
