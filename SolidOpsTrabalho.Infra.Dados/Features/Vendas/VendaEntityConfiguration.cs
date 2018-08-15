@@ -22,6 +22,7 @@ namespace SolidOpsTrabalho.Infra.Dados.Features.Vendas
             this.Property(o => o.PrecoUnitario).IsRequired();
             this.Property(o => o.Produto).IsRequired();
             this.Property(o => o.Quantidade).IsRequired();
+            this.Property(o => o.VendaValida).IsRequired();
         } 
 
     }
