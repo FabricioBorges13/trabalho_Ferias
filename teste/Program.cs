@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SolidOpsTrabalho.Infra.Utils;
 using SolidOpsTrabalho.Aplicacao.Features.Vendas;
+using SolidOpsTrabalho.Dominio.Features.Vendas;
 
 namespace teste
 {
@@ -16,19 +17,36 @@ namespace teste
     {
         static void Main(string[] args)
         {
+            DateTime  inicio = DateTime.Now;
+            Venda venda = new Venda();
             CSVService a = new CSVService();
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string folderPath = Path.Combine(desktop, "testeCSV/");
-            int x = 0;
-            a.GerarMassaDados(folderPath, 4);
-            string filePath = Path.Combine(desktop, "testeCSV/Venda" + x++ + ".csv");
-            var s = a.LeiturasDeDados(filePath);
-            foreach (var item in s)
+            string filePath = "";
+
+                  a.GerarMassaDados(folderPath, 30);
+            for (int i = 0; i < 30; i++)
             {
-                Debug.Write(item.Id);
+                filePath = Path.Combine(desktop, "testeCSV/Venda" + i + ".csv");
+                var s = a.LeiturasDeDados(filePath);
+                foreach (var item in s)
+                {
+                    Debug.Write(item.Id);
+
+                }
+                VendaTask vendaTask = new VendaTask(filePath);
             }
 
-            VendaTask vendaTask = new VendaTask(filePath);
+
+
+            DateTime fim = DateTime.Now;
+
+            TimeSpan x = fim - inicio;
+
+            Console.WriteLine(x);
+            Console.ReadKey();
+
+            
 
             
         }

@@ -14,12 +14,13 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
     public class VendaTask
     {
         public CSVService _CSVService;
-
+        private string CaminhoPastaDeVendas;
+        private string CaminhoPastaDeVendasValidas;
+        private string CaminhoPastaDeVendasInvalidas;
 
         public VendaTask(string caminho)
         {
-            TaskLeitura(caminho);
-            TaskValidarVenda();
+            TaskLeitura(CaminhoPastaDeVendas);
         }
         public void TaskLeitura(string folderPath)
         {
@@ -29,22 +30,36 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             leitura.Wait();
         }
 
-        public void TaskValidarVenda()
+        public void TaskValidarVenda(Venda venda)
         {
-            var validar = Task.Run(() => ValidarVenda());
+            var validar = Task.Run(() => ValidarVenda(venda));
             validar.Wait();
         }
 
-        private void ValidarVenda()
+        public void TaskMoverInvalida()
         {
-            if (_CSVService == null)
-                throw new Exception();
+            var invalida = Task.Run(() => MoverParaDiretorioDeVendasInvalidas());
+            invalida.Wait();
         }
+
+        private void TaskMoverValida()
+        {
+            var valida = Task.Run(() => MoverParaDiretorioDeVendasValidas());
+            valida.Wait();
+        }
+
+        private void ValidarVenda(Venda venda)
+        {
+            if (venda.Validar() == false)
+                TaskMoverInvalida();
+            else
+                TaskMoverValida();
+        }       
 
         private List<Venda> LerArquivos(string caminho)
         {
             var list = _CSVService.LeiturasDeDados(caminho);
-            TaskValidarVenda();
+            TaskValidarVenda(list.FirstOrDefault());
             var lista = new List<Venda>();
 
             foreach (var item in list)
@@ -53,6 +68,27 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             }
 
             return lista;
+        }
+
+        private void MoverParaDiretorioDeVendasValidas()
+        {
+            MoverArquivo(CaminhoPastaDeVendasValidas);
+        }
+
+        private void MoverParaDiretorioDeVendasInvalidas()
+        {
+            MoverArquivo(CaminhoPastaDeVendasInvalidas);
+        }
+
+        private void MoverArquivo(string caminho)
+        {
+            var caminhoVendas = new DirectoryInfo(caminho);
+
+            //  if (caminhoParaMover.Exists)
+            //  {
+            var files = caminhoVendas.GetFiles(".csv");
+            files.ToList().ForEach(f => File.Move(CaminhoPastaDeVendas, caminho));
+            // }
         }
     }
 }
