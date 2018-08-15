@@ -19,7 +19,6 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         public VendaTask(string caminho)
         {
             TaskLeitura(caminho);
-            TaskValidarVenda();
         }
         public void TaskLeitura(string folderPath)
         {
@@ -29,22 +28,23 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             leitura.Wait();
         }
 
-        public void TaskValidarVenda()
+        public void TaskValidarVenda(Venda venda)
         {
-            var validar = Task.Run(() => ValidarVenda());
+            var validar = Task.Run(() => ValidarVenda(venda));
             validar.Wait();
         }
 
-        private void ValidarVenda()
+        private void ValidarVenda(Venda venda)
         {
-            if (_CSVService == null)
+            if (venda.ValidarNomeCliente() == false)
                 throw new Exception();
+
         }
 
         private List<Venda> LerArquivos(string caminho)
         {
             var list = _CSVService.LeiturasDeDados(caminho);
-            TaskValidarVenda();
+            TaskValidarVenda(list.FirstOrDefault());
             var lista = new List<Venda>();
 
             foreach (var item in list)

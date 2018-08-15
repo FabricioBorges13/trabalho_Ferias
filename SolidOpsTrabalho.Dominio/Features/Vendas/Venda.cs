@@ -14,8 +14,20 @@ namespace SolidOpsTrabalho.Dominio.Features.Vendas
         public double PrecoUnitario { get; set; }
         public double PrecoTotal { get { return Quantidade * PrecoUnitario; } }
         public int Quantidade { get; set; }
-   
 
-       
+        public bool Validar()
+        {
+            ValidarNomeCliente();
+
+            return true;
+        }
+
+        public bool ValidarNomeCliente()
+        {
+            if (String.IsNullOrEmpty(NomeDoCliente))
+                return false;
+            else
+                return true;
+        }
     }
 }

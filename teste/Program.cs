@@ -23,11 +23,11 @@ namespace teste
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string folderPath = Path.Combine(desktop, "testeCSV/");
             string filePath = "";
-           
-                      a.GerarMassaDados(folderPath, 3000);
-            for (int i = 0; i < 3000; i++)
+
+                  a.GerarMassaDados(folderPath, 30);
+            for (int i = 0; i < 30; i++)
             {
-                 filePath = Path.Combine(desktop, "testeCSV/Venda" + i + ".csv");
+                filePath = Path.Combine(desktop, "testeCSV/Venda" + i + ".csv");
                 var s = a.LeiturasDeDados(filePath);
                 foreach (var item in s)
                 {
@@ -36,6 +36,8 @@ namespace teste
                 }
                 VendaTask vendaTask = new VendaTask(filePath);
             }
+
+
 
             DateTime fim = DateTime.Now;
 
