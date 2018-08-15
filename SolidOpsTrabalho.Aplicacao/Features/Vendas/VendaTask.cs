@@ -20,7 +20,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         public VendaTask(string caminho)
         {
-            TaskLeitura(caminho);
+            TaskLeitura(CaminhoPastaDeVendas);
         }
         public void TaskLeitura(string folderPath)
         {
