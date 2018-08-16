@@ -14,20 +14,19 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
     public class VendaTask
     {
         public CSVService _CSVService;
-        private string CaminhoPastaDeVendas;
-        private string CaminhoPastaDeVendasValidas;
-        private string CaminhoPastaDeVendasInvalidas;
+        string CaminhoPastaDeVendas = @"C:\vendas\vendas";
+        private string CaminhoPastaDeVendasValidas = @"C:\vendas\validas";
+        private string CaminhoPastaDeVendasInvalidas = @"C:\vendas\invalidas";
 
-        public VendaTask(string caminho)
-        {
-            TaskLeitura(CaminhoPastaDeVendas);
-        }
-        public void TaskLeitura(string folderPath)
+
+        public List<Venda> TaskLeitura(string caminho)
         {
             _CSVService = new CSVService();
 
-            var leitura = Task.Run(() => LerArquivos(folderPath));
+            var leitura = Task.Run(() => LerArquivos(caminho));
             leitura.Wait();
+
+            return LerArquivos(caminho).ToList();
         }
 
         public void TaskValidarVenda(Venda venda)
@@ -59,14 +58,14 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private List<Venda> LerArquivos(string caminho)
         {
             var list = _CSVService.LeiturasDeDados(caminho);
-            TaskValidarVenda(list.FirstOrDefault());
+            
             var lista = new List<Venda>();
 
             foreach (var item in list)
             {
                 lista.Add(item);
             }
-
+            TaskValidarVenda(lista.LastOrDefault());
             return lista;
         }
 
@@ -84,11 +83,9 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         {
             var caminhoVendas = new DirectoryInfo(caminho);
 
-            //  if (caminhoParaMover.Exists)
-            //  {
             var files = caminhoVendas.GetFiles(".csv");
             files.ToList().ForEach(f => File.Move(CaminhoPastaDeVendas, caminho));
-            // }
+           
         }
     }
 }

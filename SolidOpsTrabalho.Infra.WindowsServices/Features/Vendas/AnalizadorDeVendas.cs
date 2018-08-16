@@ -53,27 +53,6 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
            
         }
 
-
-        //os 3 metodos abaixo vão para dentro do VendaTask, que vai processar e mover os arquivos
-        private void MoverParaDiretorioDeVendasValidas()
-        {
-            MoverArquivo(CaminhoPastaDeVendasValidas);
-        }
-
-        private void MoverParaDiretorioDeVendasInvalidas()
-        {
-            MoverArquivo(CaminhoPastaDeVendasInvalidas);
-        }
-
-        private void MoverArquivo(string caminho)
-        {
-            var caminhoVendas = new DirectoryInfo(CaminhoPastaDeVendas);
-
-          //  if (caminhoParaMover.Exists)
-          //  {
-                var files = caminhoVendas.GetFiles(".csv");
-                files.ToList().ForEach(f => File.Move(CaminhoPastaDeVendas, caminho));
-           // }
-        }
+        
     }
 }
