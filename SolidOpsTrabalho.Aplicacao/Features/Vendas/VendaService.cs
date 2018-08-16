@@ -1,5 +1,6 @@
 ﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
 using SolidOpsTrabalho.Infra.CSV;
+using SolidOpsTrabalho.Infra.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,10 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         {
             _repository.Adicionar(venda);
         }
+        public List<string> ListarArquivos(string caminho)
+        {
+            return ScannerDePasta.ListarArquivos(caminho);
+        }
+
     }
 }

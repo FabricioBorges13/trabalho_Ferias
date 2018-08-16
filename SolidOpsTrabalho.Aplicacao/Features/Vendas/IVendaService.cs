@@ -9,6 +9,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 {
     public interface IVendaService
     {
+        List<string> ListarArquivos(string caminho);
         void Add(Venda venda);
     }
 }

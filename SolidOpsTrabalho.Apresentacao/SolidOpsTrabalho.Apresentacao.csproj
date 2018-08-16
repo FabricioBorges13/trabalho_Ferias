@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -93,6 +94,10 @@
     <ProjectReference Include="..\SolidOpsTrabalho.Infra.Dados\SolidOpsTrabalho.Infra.Dados.csproj">
       <Project>{E8ED5D29-7E4E-4974-9CDA-6B9A62F37267}</Project>
       <Name>SolidOpsTrabalho.Infra.Dados</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Infra\SolidOpsTrabalho.Infra.csproj">
+      <Project>{02127427-D867-476E-BA38-077982CA8552}</Project>
+      <Name>SolidOpsTrabalho.Infra</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
