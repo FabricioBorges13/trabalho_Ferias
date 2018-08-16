@@ -43,8 +43,8 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
                 x.RunAsLocalSystem();                                       //6
                 
                 x.SetDescription("Serviço de analise e processamento de arquivos de vendas");                   //7
-                x.SetDisplayName("Vendas Service");                                  //8
-                x.SetServiceName("VendasService");                                  //9
+                x.SetDisplayName("Vendas Service");                         //8
+                x.SetServiceName("VendasService");                          //9
             });                                                             //10
             
             var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());  //11
