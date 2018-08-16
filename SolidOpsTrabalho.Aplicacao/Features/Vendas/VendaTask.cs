@@ -2,6 +2,7 @@
 using SolidOpsTrabalho.Infra.CSV;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,19 +15,23 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
     public class VendaTask
     {
         public CSVService _CSVService;
-        string CaminhoPastaDeVendas = @"C:\vendas\vendas";
-        private string CaminhoPastaDeVendasValidas = @"C:\vendas\validas";
-        private string CaminhoPastaDeVendasInvalidas = @"C:\vendas\invalidas";
+        private string CaminhoPastaDeVendas;
+        private string CaminhoPastaDeVendasValidas;
+        private string CaminhoPastaDeVendasInvalidas;
 
+        public VendaTask()
+        {
+            CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
+            CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
+            CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
+        }
 
-        public List<Venda> TaskLeitura(string caminho)
+        public void TaskLeitura(string caminho)
         {
             _CSVService = new CSVService();
 
-            var leitura = Task.Run(() => LerArquivos(caminho));
+            var leitura = Task.Run(() => LerArquivo(caminho));
             leitura.Wait();
-
-            return LerArquivos(caminho).ToList();
         }
 
         public void TaskValidarVenda(Venda venda)
@@ -53,20 +58,18 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
                 TaskMoverInvalida();
             else
                 TaskMoverValida();
-        }       
+        }
 
-        private List<Venda> LerArquivos(string caminho)
+        private Venda LerArquivo(string caminho)
         {
             var list = _CSVService.LeiturasDeDados(caminho);
-            
-            var lista = new List<Venda>();
 
-            foreach (var item in list)
-            {
-                lista.Add(item);
-            }
-            TaskValidarVenda(lista.LastOrDefault());
-            return lista;
+            var venda = new Venda();
+
+            venda = list.LastOrDefault();
+          
+            TaskValidarVenda(venda);
+            return venda;
         }
 
         private void MoverParaDiretorioDeVendasValidas()
@@ -85,7 +88,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
             var files = caminhoVendas.GetFiles(".csv");
             files.ToList().ForEach(f => File.Move(CaminhoPastaDeVendas, caminho));
-           
+
         }
     }
 }
