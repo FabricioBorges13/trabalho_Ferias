@@ -18,16 +18,15 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
 
-        public VendaTask(string caminho)
-        {
-            TaskLeitura(CaminhoPastaDeVendas);
-        }
-        public void TaskLeitura(string folderPath)
+        
+        public List<Venda> TaskLeitura(string caminho)
         {
             _CSVService = new CSVService();
 
-            var leitura = Task.Run(() => LerArquivos(folderPath));
+            var leitura = Task.Run(() => LerArquivos(caminho));
             leitura.Wait();
+
+            return LerArquivos(caminho).ToList();
         }
 
         public void TaskValidarVenda(Venda venda)
@@ -84,11 +83,9 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         {
             var caminhoVendas = new DirectoryInfo(caminho);
 
-            //  if (caminhoParaMover.Exists)
-            //  {
             var files = caminhoVendas.GetFiles(".csv");
             files.ToList().ForEach(f => File.Move(CaminhoPastaDeVendas, caminho));
-            // }
+           
         }
     }
 }
