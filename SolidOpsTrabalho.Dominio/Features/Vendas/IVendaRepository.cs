@@ -9,6 +9,5 @@ namespace SolidOpsTrabalho.Dominio.Features.Vendas
     public interface IVendaRepository
     {
         void Adicionar(Venda venda);
-        IQueryable<Venda> ObterTodos();
     }
 }

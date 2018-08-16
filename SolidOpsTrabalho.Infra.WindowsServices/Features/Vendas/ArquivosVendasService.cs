@@ -12,15 +12,10 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
     public class TownCrier
     {
         readonly Timer _timer;
-        private VendaRepository vendaRepository;
-        private SolidOpsContext solidOpsContext;
 
         public TownCrier()
         {
-            solidOpsContext = new SolidOpsContext();
-            vendaRepository = new VendaRepository(solidOpsContext);
-
-            var vendas = new AnalizadorDeVendas(vendaRepository);
+            var vendas = new AnalizadorDeVendas();
             vendas.Watch();
 
             _timer = new Timer(1000) { AutoReset = true };
@@ -48,8 +43,8 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
                 x.RunAsLocalSystem();                                       //6
                 
                 x.SetDescription("Serviço de analise e processamento de arquivos de vendas");                   //7
-                x.SetDisplayName("Vendas Service");                                  //8
-                x.SetServiceName("VendasService");                                  //9
+                x.SetDisplayName("Vendas Service");                         //8
+                x.SetServiceName("VendasService");                          //9
             });                                                             //10
             
             var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());  //11

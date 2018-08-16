@@ -26,18 +26,15 @@ namespace SolidOpsTrabalho.Dominio.Features.Vendas
 
         private void ValidarProduto()
         {
-            if (String.IsNullOrEmpty(Produto))
-                VendaValida = false;
-            else
-                VendaValida = true;
+            VendaValida = VendaValida ?  !String.IsNullOrEmpty(Produto) : VendaValida;
         }
 
         public void ValidarNomeCliente()
         {
-            if (String.IsNullOrEmpty(NomeDoCliente))
-                VendaValida = false;
-            else
-                VendaValida = true;
+            VendaValida = VendaValida ? !String.IsNullOrEmpty(NomeDoCliente) : VendaValida;
+        }
+        public bool ValidarListaDeVendas(List<Venda> vendas) {
+            return vendas.Count == 1;
         }
     }
 }

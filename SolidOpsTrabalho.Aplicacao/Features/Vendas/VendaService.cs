@@ -18,29 +18,13 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             _repository = repository;
         }
 
-        public void Atualizar()
+        public void Add(Venda venda)
         {
-            throw new NotImplementedException();
+            _repository.Adicionar(venda);
         }
-
-        public void Finalizar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Inicializar()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<string> ListarArquivos(string caminho)
         {
             return ScannerDePasta.ListarArquivos(caminho);
-        }
-
-        public IQueryable<Venda> ObterVendas()
-        {
-            return _repository.ObterTodos();
         }
 
     }

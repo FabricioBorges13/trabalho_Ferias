@@ -56,6 +56,10 @@
       <Project>{CB700DA9-51BB-41B7-8F20-0C0D3C18E915}</Project>
       <Name>SolidOpsTrabalho.Aplicacao</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
+      <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
+      <Name>SolidOpsTrabalho.Dominio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SolidOpsTrabalho.Infra.Dados\SolidOpsTrabalho.Infra.Dados.csproj">
       <Project>{E8ED5D29-7E4E-4974-9CDA-6B9A62F37267}</Project>
       <Name>SolidOpsTrabalho.Infra.Dados</Name>
