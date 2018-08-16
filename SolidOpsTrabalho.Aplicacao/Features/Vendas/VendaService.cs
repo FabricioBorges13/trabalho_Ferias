@@ -17,24 +17,9 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             _repository = repository;
         }
 
-        public void Atualizar()
+        public void Add(Venda venda)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Finalizar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Inicializar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Venda> ObterVendas()
-        {
-            return _repository.ObterTodos();
+            _repository.Adicionar(venda);
         }
     }
 }

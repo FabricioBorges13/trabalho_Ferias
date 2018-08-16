@@ -12,15 +12,10 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
     public class TownCrier
     {
         readonly Timer _timer;
-        private VendaRepository vendaRepository;
-        private SolidOpsContext solidOpsContext;
 
         public TownCrier()
         {
-            solidOpsContext = new SolidOpsContext();
-            vendaRepository = new VendaRepository(solidOpsContext);
-
-            var vendas = new AnalizadorDeVendas(vendaRepository);
+            var vendas = new AnalizadorDeVendas();
             vendas.Watch();
 
             _timer = new Timer(1000) { AutoReset = true };
