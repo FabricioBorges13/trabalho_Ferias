@@ -15,11 +15,9 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private string CaminhoPastaDeVendas;
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
-        private VendaRepository _VendaRepository;
 
-        public AnalizadorDeVendas(VendaRepository vendaRepository)
+        public AnalizadorDeVendas()
         {
-            _VendaRepository = vendaRepository;
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
                 CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
