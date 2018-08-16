@@ -1,4 +1,5 @@
-﻿using SolidOpsTrabalho.Infra.CSV;
+﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
+using SolidOpsTrabalho.Infra.CSV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,16 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 {
     public class VendaService : IVendaService
     {
-       
-        public void Atualizar()
+        public IVendaRepository _repository;
+
+        public VendaService(IVendaRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
         }
 
-        public void Finalizar()
+        public void Add(Venda venda)
         {
-            throw new NotImplementedException();
+            _repository.Adicionar(venda);
         }
-
-        public void Inicializar()
-        {
-            throw new NotImplementedException();
-        }
-                
     }
 }

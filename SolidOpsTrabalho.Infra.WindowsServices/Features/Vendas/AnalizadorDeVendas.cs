@@ -1,4 +1,5 @@
 ﻿using SolidOpsTrabalho.Aplicacao.Features.Vendas;
+using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,7 +19,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         public AnalizadorDeVendas()
         {
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
-                CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
+            CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
         }
         public void Watch()
@@ -26,27 +27,22 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = CaminhoPastaDeVendas;
             watcher.NotifyFilter = NotifyFilters.LastWrite;
-            watcher.Filter = "*.*";
+            watcher.Filter = "*.csv";
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.EnableRaisingEvents = true;
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            Console.WriteLine("Hello World!");
-
             DirectoryInfo pasta = new DirectoryInfo(CaminhoPastaDeVendas);
             FileInfo[] Files = pasta.GetFiles("*.csv");
 
             foreach (FileInfo file in Files)
-            {
-                var task = new VendaTask(CaminhoPastaDeVendas +"\\"+ file.Name);
-                // o VendaTask deve retornar se o arquivo é valido ou não e retornar a lista de Vendas
-                // o AnalizadorDeVenddas vai verificar o retorno e salvar no banco o status do arquivo e a lista de Vendas validass
+            {                          
+                var task = new VendaTask();
+                task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name); 
             }
            
-        }
-
-        
+        }       
     }
 }

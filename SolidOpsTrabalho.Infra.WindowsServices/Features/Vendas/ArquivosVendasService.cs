@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SolidOpsTrabalho.Infra.Dados.Context;
+using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
