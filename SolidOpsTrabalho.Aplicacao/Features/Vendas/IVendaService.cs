@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         void Inicializar();
         void Finalizar();
         void Atualizar();
+        IQueryable<Venda> ObterVendas();
         
     }
 }
