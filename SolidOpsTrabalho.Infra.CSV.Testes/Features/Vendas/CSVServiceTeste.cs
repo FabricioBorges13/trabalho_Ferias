@@ -1,10 +1,12 @@
-﻿using NUnit.Framework;
-using System;
+﻿using FluentAssertions;
+using NUnit.Framework;
+
+
 using System.Collections.Generic;
+
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace SolidOpsTrabalho.Infra.CSV.Testes.Features.Vendas
 {
@@ -14,18 +16,37 @@ namespace SolidOpsTrabalho.Infra.CSV.Testes.Features.Vendas
 
 
         string caminhoCsvTeste;
-        CSVServiceTeste _csvServiceTeste;
+        CSVService _csvServiceTeste;
 
         [SetUp]
         public void SetUp() {
-            _csvServiceTeste = new CSVServiceTeste();
-            string diretorioLocal = Directory.GetCurrentDirectory();
-            caminhoCsvTeste = Path.Combine(diretorioLocal, "Arquivos/teste.csv");
+            _csvServiceTeste = new CSVService();
+            caminhoCsvTeste = Path.GetTempPath();
         }
-        public void InfraCSV_LeiturasDeDados_DeveRetornarUmaLindasDeVendasValidas()
+
+        [Test]
+        public void InfraCSV_LeiturasDeDados_DeveRetornarUmaListaComPeloMenosUmaVenda()
         {
-               
+            _csvServiceTeste = new CSVService();
+            int quantidadeDeArquivos = 1;
+            _csvServiceTeste.GerarMassaDados(caminhoCsvTeste, quantidadeDeArquivos);
+            caminhoCsvTeste = Path.Combine(caminhoCsvTeste, "Venda0.csv");
+
+            var s = _csvServiceTeste.LeiturasDeDados(caminhoCsvTeste);
+
+            s.Should().NotBeEmpty();
         }
-        
+
+        [Test]
+        public void InfraCSV_GerarMassaDeDados_DeveGerar_UmArquivoCsvComUmaVendaValida()
+        {
+            _csvServiceTeste = new CSVService();
+            int quantidadeDeArquivos = 1;
+
+            _csvServiceTeste.GerarMassaDados(caminhoCsvTeste, quantidadeDeArquivos);
+            caminhoCsvTeste = Path.Combine(caminhoCsvTeste, "Venda0.csv");
+
+            File.Exists(caminhoCsvTeste).Should().BeTrue();
+        }
     }
 }
