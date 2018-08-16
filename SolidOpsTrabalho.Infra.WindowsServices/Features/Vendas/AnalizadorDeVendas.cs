@@ -42,17 +42,11 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
             FileInfo[] Files = pasta.GetFiles("*.csv");
 
             foreach (FileInfo file in Files)
-            {
-                
+            {                          
                 var task = new VendaTask();
-                var vendas = task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name);
-                _VendaRepository.Adicionar(venda);
-                // o VendaTask deve retornar se o arquivo é valido ou não e retornar a lista de Vendas
-                // o AnalizadorDeVenddas vai verificar o retorno e salvar no banco o status do arquivo e a lista de Vendas validass
+                task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name); 
             }
            
-        }
-
-        
+        }       
     }
 }
