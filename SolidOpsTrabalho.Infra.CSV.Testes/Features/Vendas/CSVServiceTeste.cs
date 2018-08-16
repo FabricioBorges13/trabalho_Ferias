@@ -35,6 +35,7 @@ namespace SolidOpsTrabalho.Infra.CSV.Testes.Features.Vendas
             var s = _csvServiceTeste.LeiturasDeDados(caminhoCsvTeste);
 
             s.Should().NotBeEmpty();
+            File.Delete(caminhoCsvTeste);
         }
 
         [Test]
@@ -47,6 +48,7 @@ namespace SolidOpsTrabalho.Infra.CSV.Testes.Features.Vendas
             caminhoCsvTeste = Path.Combine(caminhoCsvTeste, "Venda0.csv");
 
             File.Exists(caminhoCsvTeste).Should().BeTrue();
+            File.Delete(caminhoCsvTeste);
         }
     }
 }
