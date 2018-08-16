@@ -13,6 +13,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         void Finalizar();
         void Atualizar();
         IQueryable<Venda> ObterVendas();
+        List<string> ListarArquivos(string caminho);
         
     }
 }

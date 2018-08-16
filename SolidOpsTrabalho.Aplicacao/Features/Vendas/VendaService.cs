@@ -1,5 +1,6 @@
 ﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
 using SolidOpsTrabalho.Infra.CSV;
+using SolidOpsTrabalho.Infra.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +33,15 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             throw new NotImplementedException();
         }
 
+        public List<string> ListarArquivos(string caminho)
+        {
+            return ScannerDePasta.ListarArquivos(caminho);
+        }
+
         public IQueryable<Venda> ObterVendas()
         {
             return _repository.ObterTodos();
         }
+
     }
 }

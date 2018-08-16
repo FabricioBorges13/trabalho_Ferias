@@ -48,6 +48,7 @@
     <Compile Include="Utils\RandomStringMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\RandomVendaMethods.cs" />
+    <Compile Include="Utils\ScannerDePasta.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
