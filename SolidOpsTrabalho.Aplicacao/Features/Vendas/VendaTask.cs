@@ -18,6 +18,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private string CaminhoPastaDeVendas;
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
+        VendaService vendaService;
 
         public VendaTask()
         {
@@ -40,24 +41,25 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             validar.Wait();
         }
 
-        public void TaskMoverInvalida()
+        public void TaskMoverInvalida(Venda venda)
         {
             var invalida = Task.Run(() => MoverParaDiretorioDeVendasInvalidas());
             invalida.Wait();
         }
 
-        private void TaskMoverValida()
+        private void TaskMoverValida(Venda venda)
         {
             var valida = Task.Run(() => MoverParaDiretorioDeVendasValidas());
+            vendaService.Add(venda);
             valida.Wait();
         }
 
         private void ValidarVenda(Venda venda)
         {
             if (venda.Validar() == false)
-                TaskMoverInvalida();
+                TaskMoverInvalida(venda);
             else
-                TaskMoverValida();
+                TaskMoverValida(venda);
         }
 
         private Venda LerArquivo(string caminho)
@@ -67,7 +69,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             var venda = new Venda();
 
             venda = list.LastOrDefault();
-          
+
             TaskValidarVenda(venda);
             return venda;
         }
