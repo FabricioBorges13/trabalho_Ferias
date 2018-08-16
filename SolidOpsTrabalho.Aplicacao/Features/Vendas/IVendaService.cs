@@ -9,10 +9,6 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 {
     public interface IVendaService
     {
-        void Inicializar();
-        void Finalizar();
-        void Atualizar();
-        IQueryable<Venda> ObterVendas();
-        
+        void Add(Venda venda);
     }
 }
