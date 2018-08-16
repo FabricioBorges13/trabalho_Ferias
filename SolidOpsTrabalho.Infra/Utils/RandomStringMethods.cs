@@ -11,7 +11,7 @@ namespace SolidOpsTrabalho.Infra.Utils
             StringBuilder stringGerada = new StringBuilder();
             for (int i = 0; i < numeroDeLetras; i++)
             {
-                char letra = (char)random.Next(100);
+                char letra = (char)(random.Next(30)+30);
                 stringGerada.Append(letra);
             }
             return @stringGerada.ToString();

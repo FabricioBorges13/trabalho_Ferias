@@ -23,7 +23,7 @@ namespace SolidOpsTrabalho.Infra.Utils
             Venda venda = new Venda();
             venda.Id = id;
             venda.NomeDoCliente = null;
-//            #region cliente
+            #region cliente
 //            venda.NomeDoCliente = @"Não tinha medo o tal João de Santo Cristo
 //Era o que todos diziam quando ele se perdeu
 //Deixou pra trás todo o marasmo da fazenda
@@ -662,7 +662,7 @@ namespace SolidOpsTrabalho.Infra.Utils
 //Pra ajudar toda essa gente que só faz
 
 //Sofrer";
-//#endregion cliente
+ #endregion cliente
 
             #region produto 
             venda.PrecoUnitario = 1;

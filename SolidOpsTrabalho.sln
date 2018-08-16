@@ -37,8 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidOpsTrabalho.Infra.Wind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidOpsTrabalho.Aplicacao.Testes", "SolidOpsTrabalho.Aplicacao.Testes\SolidOpsTrabalho.Aplicacao.Testes.csproj", "{76EDF6E5-1BCC-49B4-8700-E9AA4117064D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "teste", "teste\teste.csproj", "{9C533364-1652-40AB-A90A-87BC807FA861}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidOpsTrabalho.Infra", "SolidOpsTrabalho.Infra\SolidOpsTrabalho.Infra.csproj", "{02127427-D867-476E-BA38-077982CA8552}"
 EndProject
 Global
@@ -95,10 +93,6 @@ Global
 		{76EDF6E5-1BCC-49B4-8700-E9AA4117064D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76EDF6E5-1BCC-49B4-8700-E9AA4117064D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76EDF6E5-1BCC-49B4-8700-E9AA4117064D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C533364-1652-40AB-A90A-87BC807FA861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C533364-1652-40AB-A90A-87BC807FA861}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C533364-1652-40AB-A90A-87BC807FA861}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C533364-1652-40AB-A90A-87BC807FA861}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02127427-D867-476E-BA38-077982CA8552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02127427-D867-476E-BA38-077982CA8552}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02127427-D867-476E-BA38-077982CA8552}.Release|Any CPU.ActiveCfg = Release|Any CPU
