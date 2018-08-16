@@ -1,4 +1,5 @@
 ﻿using SolidOpsTrabalho.Aplicacao.Features.Vendas;
+using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,9 +15,11 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private string CaminhoPastaDeVendas;
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
+        private VendaRepository _VendaRepository;
 
-        public AnalizadorDeVendas()
+        public AnalizadorDeVendas(VendaRepository vendaRepository)
         {
+            _VendaRepository = vendaRepository;
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
                 CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
@@ -40,7 +43,10 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 
             foreach (FileInfo file in Files)
             {
-                var task = new VendaTask(CaminhoPastaDeVendas +"\\"+ file.Name);
+                
+                var task = new VendaTask();
+                var vendas = task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name);
+                _VendaRepository.Adicionar(venda);
                 // o VendaTask deve retornar se o arquivo é valido ou não e retornar a lista de Vendas
                 // o AnalizadorDeVenddas vai verificar o retorno e salvar no banco o status do arquivo e a lista de Vendas validass
             }

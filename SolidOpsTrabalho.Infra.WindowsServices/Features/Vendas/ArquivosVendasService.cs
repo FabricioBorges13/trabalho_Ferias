@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SolidOpsTrabalho.Infra.Dados.Context;
+using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +12,15 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
     public class TownCrier
     {
         readonly Timer _timer;
+        private VendaRepository vendaRepository;
+        private SolidOpsContext solidOpsContext;
 
         public TownCrier()
         {
-            var vendas = new AnalizadorDeVendas();
+            solidOpsContext = new SolidOpsContext();
+            vendaRepository = new VendaRepository(solidOpsContext);
+
+            var vendas = new AnalizadorDeVendas(vendaRepository);
             vendas.Watch();
 
             _timer = new Timer(1000) { AutoReset = true };
