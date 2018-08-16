@@ -19,7 +19,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         public AnalizadorDeVendas()
         {
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
-                CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
+            CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
         }
         public void Watch()
@@ -27,15 +27,13 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = CaminhoPastaDeVendas;
             watcher.NotifyFilter = NotifyFilters.LastWrite;
-            watcher.Filter = "*.*";
+            watcher.Filter = "*.csv";
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.EnableRaisingEvents = true;
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            Console.WriteLine("Hello World!");
-
             DirectoryInfo pasta = new DirectoryInfo(CaminhoPastaDeVendas);
             FileInfo[] Files = pasta.GetFiles("*.csv");
 
