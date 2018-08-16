@@ -52,7 +52,5 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
             }
            
         }
-
-        
     }
 }
