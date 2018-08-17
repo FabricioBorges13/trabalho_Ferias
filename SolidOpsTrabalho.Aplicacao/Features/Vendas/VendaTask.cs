@@ -50,7 +50,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private void TaskMoverValida(Venda venda)
         {
             var valida = Task.Run(() => MoverParaDiretorioDeVendasValidas());
-            vendaService.Add(venda);
+            vendaService.Adicionar(venda);
             valida.Wait();
         }
 
