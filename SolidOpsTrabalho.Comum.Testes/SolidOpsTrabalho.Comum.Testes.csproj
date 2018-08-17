@@ -45,5 +45,11 @@
   <ItemGroup>
     <Folder Include="Features\Vendas\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
+      <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
+      <Name>SolidOpsTrabalho.Dominio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
