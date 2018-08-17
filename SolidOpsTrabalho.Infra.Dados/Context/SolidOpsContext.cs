@@ -13,7 +13,7 @@ namespace SolidOpsTrabalho.Infra.Dados.Context
     {
         public DbSet<Venda> Vendas { get; set; }
 
-        public SolidOpsContext() : base("SolidOpsDB")
+        public SolidOpsContext() : base("SolidOpsTrabalhoDB")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = true;
