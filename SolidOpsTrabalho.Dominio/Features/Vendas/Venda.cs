@@ -18,6 +18,7 @@ namespace SolidOpsTrabalho.Dominio.Features.Vendas
 
         public virtual bool Validar()
         {
+            VendaValida = true;
             ValidarNomeCliente();
             ValidarProduto();
 
