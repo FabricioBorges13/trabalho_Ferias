@@ -25,6 +25,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
+            
         }
 
         public void TaskLeitura(string caminho)
@@ -47,7 +48,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             invalida.Wait();
         }
 
-        private void TaskMoverValida(Venda venda)
+        public void TaskMoverValida(Venda venda)
         {
             var valida = Task.Run(() => MoverParaDiretorioDeVendasValidas());
             vendaService.Adicionar(venda);
