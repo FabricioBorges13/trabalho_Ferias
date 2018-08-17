@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
@@ -26,7 +27,13 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = CaminhoPastaDeVendas;
-            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.NotifyFilter = NotifyFilters.Attributes |
+                 NotifyFilters.CreationTime |
+                 NotifyFilters.FileName |
+                 NotifyFilters.LastAccess |
+                 NotifyFilters.LastWrite |
+                 NotifyFilters.Size |
+                 NotifyFilters.Security;
             watcher.Filter = "*.csv";
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.EnableRaisingEvents = true;
@@ -39,10 +46,38 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 
             foreach (FileInfo file in Files)
             {                          
-                var task = new VendaTask();
-                task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name); 
+                if (WaitForFile(file))
+                {
+                    var task = new VendaTask();
+                    task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name, file.Name);
+
+                }
             }
            
-        }       
+        }
+
+        private bool WaitForFile(FileInfo file)
+        {
+            FileStream stream = null;
+            bool FileReady = false;
+            while (!FileReady)
+            {
+                try
+                {
+                    using (stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                    {
+                        FileReady = true;
+                    }
+                }
+                catch (IOException)
+                {
+                    //File isn't ready yet, so we need to keep on waiting until it is.
+                }
+                //We'll want to wait a bit between polls, if the file isn't ready.
+                if (!FileReady) Thread.Sleep(1000);
+            }
+
+            return FileReady;
+        }
     }
 }

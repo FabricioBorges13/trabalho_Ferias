@@ -1,5 +1,7 @@
 ﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
 using SolidOpsTrabalho.Infra.CSV;
+using SolidOpsTrabalho.Infra.Dados.Context;
+using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,18 +21,24 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
         VendaService vendaService;
+        string NomeDoArquivo;
+        private string CaminhoDoArquivoSendoAnalizado;
 
         public VendaTask()
         {
+            var context = new SolidOpsContext();
+            var repository = new VendaRepository(context);
+            vendaService = new VendaService(repository);
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
         }
 
-        public void TaskLeitura(string caminho)
+        public void TaskLeitura(string caminho, string nomeDoArquivo)
         {
+            this.NomeDoArquivo = nomeDoArquivo;
             _CSVService = new CSVService();
-
+            CaminhoDoArquivoSendoAnalizado = caminho;
             var leitura = Task.Run(() => LerArquivo(caminho));
             leitura.Wait();
         }
@@ -56,7 +64,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         private void ValidarVenda(Venda venda)
         {
-            if (venda.Validar() == false)
+            if (venda == null || venda.Validar() == false)
                 TaskMoverInvalida(venda);
             else
                 TaskMoverValida(venda);
@@ -65,7 +73,6 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private Venda LerArquivo(string caminho)
         {
             var list = _CSVService.LeiturasDeDados(caminho);
-
             var venda = new Venda();
 
             venda = list.LastOrDefault();
@@ -86,10 +93,11 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         private void MoverArquivo(string caminho)
         {
-            var caminhoVendas = new DirectoryInfo(caminho);
+            var caminhoVendas = new DirectoryInfo(CaminhoDoArquivoSendoAnalizado);
+            string novo = DateTime.Now.Ticks.ToString() ;
+            caminho = Path.Combine(caminho, novo + " - " + NomeDoArquivo);
 
-            var files = caminhoVendas.GetFiles(".csv");
-            files.ToList().ForEach(f => File.Move(CaminhoPastaDeVendas, caminho));
+            File.Move(CaminhoDoArquivoSendoAnalizado, caminho);
 
         }
     }
