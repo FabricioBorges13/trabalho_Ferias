@@ -12,7 +12,7 @@ namespace SolidOpsTrabalho.Dominio.Features.Vendas
         public string NomeDoCliente { get; set; }
         public string Produto { get; set; }
         public double PrecoUnitario { get; set; }
-        public double PrecoTotal { get { return Quantidade * PrecoUnitario; } }
+        public double PrecoTotal { get { return Quantidade * PrecoUnitario; } set { } }
         public int Quantidade { get; set; }
         public bool VendaValida { get; set; }
 
