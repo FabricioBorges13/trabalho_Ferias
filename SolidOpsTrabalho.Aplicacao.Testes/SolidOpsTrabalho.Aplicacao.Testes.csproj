@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Vendas\VendaServiceTeste.cs" />
+    <Compile Include="Features\Vendas\VendaTaskTeste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
