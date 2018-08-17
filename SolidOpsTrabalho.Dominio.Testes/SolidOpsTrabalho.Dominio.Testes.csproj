@@ -63,13 +63,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Vendas\VendasTeste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Vendas\" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SolidOpsTrabalho.Comum.Testes\SolidOpsTrabalho.Comum.Testes.csproj">
+      <Project>{922EB44D-F1E6-4C32-8AD4-3951A7721426}</Project>
+      <Name>SolidOpsTrabalho.Comum.Testes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SolidOpsTrabalho.Dominio\SolidOpsTrabalho.Dominio.csproj">
+      <Project>{CB8D8DCF-8812-4FE4-9CF9-24F2867B0524}</Project>
+      <Name>SolidOpsTrabalho.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

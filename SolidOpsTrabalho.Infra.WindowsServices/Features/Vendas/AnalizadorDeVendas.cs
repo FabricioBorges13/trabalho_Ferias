@@ -27,15 +27,13 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = CaminhoPastaDeVendas;
-            watcher.NotifyFilter = NotifyFilters.Attributes |
-                 NotifyFilters.CreationTime |
-                 NotifyFilters.FileName |
-                 NotifyFilters.LastAccess |
-                 NotifyFilters.LastWrite |
-                 NotifyFilters.Size |
-                 NotifyFilters.Security;
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+           | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+
             watcher.Filter = "*.csv";
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            //watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.Created += new FileSystemEventHandler(OnChanged);
+
             watcher.EnableRaisingEvents = true;
         }
 
@@ -43,14 +41,21 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         {
             DirectoryInfo pasta = new DirectoryInfo(CaminhoPastaDeVendas);
             FileInfo[] Files = pasta.GetFiles("*.csv");
-
+            Console.WriteLine("CHAMOU EVENTO!");
+            var i = 1;
             foreach (FileInfo file in Files)
-            {                          
+            {
+                i++;
                 if (WaitForFile(file))
                 {
+                    Console.WriteLine(file.Name);
+                    Console.WriteLine(i);
                     var task = new VendaTask();
                     task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name, file.Name);
 
+                } else
+                {
+                    throw new Exception();
                 }
             }
            
