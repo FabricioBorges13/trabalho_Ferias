@@ -24,12 +24,10 @@ namespace SolidOpsTrabalho.Apresentacao
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
 
-        public Form1()
+        public Form1(IVendaService vendaService)
         {
             InitializeComponent();
-            var context = new SolidOpsContext();
-            var repository = new VendaRepository(context);
-            _service = new VendaService(repository);
+            _service = vendaService;
             
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
