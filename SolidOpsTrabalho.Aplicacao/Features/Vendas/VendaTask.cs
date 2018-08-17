@@ -72,12 +72,26 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         private Venda LerArquivo(string caminho)
         {
-            var list = _CSVService.LeiturasDeDados(caminho);
-            var venda = new Venda();
+            Venda venda = new Venda();
+            try
+            {
+               var vendas = _CSVService.LeiturasDeDados(caminho);
 
-            venda = list.LastOrDefault();
-
+               if (vendas.Count > 1)
+                {
+                    venda = null;
+                } else
+                {
+                    venda = vendas.LastOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                venda = null;             
+            }
+                     
             TaskValidarVenda(venda);
+
             return venda;
         }
 
