@@ -32,6 +32,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
+            
         }
 
         public void TaskLeitura(string caminho, string nomeDoArquivo)
@@ -55,7 +56,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             invalida.Wait();
         }
 
-        private void TaskMoverValida(Venda venda)
+        public void TaskMoverValida(Venda venda)
         {
             var valida = Task.Run(() => MoverParaDiretorioDeVendasValidas());
             vendaService.Adicionar(venda);
@@ -64,13 +65,28 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         private void ValidarVenda(Venda venda)
         {
-            if (venda == null || venda.Validar() == false)
-                TaskMoverInvalida(venda);
-            else
-                TaskMoverValida(venda);
+            bool valida = false;
+            var x = venda.Validar();
+            int i = 0;
+            while (!valida)
+            {
+                if (venda == null || !x || i > 2)
+                {
+                    TaskMoverInvalida(venda);
+                    
+                }
+                   
+                else
+                {
+                    TaskMoverValida(venda);
+                    break;
+                }
+                    
+            }
+                      
         }
 
-        private Venda LerArquivo(string caminho)
+        private void LerArquivo(string caminho)
         {
             Venda venda = new Venda();
             try
@@ -91,8 +107,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             }
                      
             TaskValidarVenda(venda);
-
-            return venda;
+            
         }
 
         private void MoverParaDiretorioDeVendasValidas()
