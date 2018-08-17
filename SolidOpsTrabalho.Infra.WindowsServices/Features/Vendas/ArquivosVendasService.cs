@@ -19,7 +19,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
             vendas.Watch();
 
             _timer = new Timer(1000) { AutoReset = true };
-            _timer.Elapsed += (sender, eventArgs) => Console.WriteLine("It is {0} and all is well", DateTime.Now);
+             //_timer.Elapsed += (sender, eventArgs) => Console.WriteLine("It is {0} and all is well", DateTime.Now);
             
         }
         public void Start() { _timer.Start(); }
