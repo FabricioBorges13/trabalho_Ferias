@@ -20,7 +20,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private string CaminhoPastaDeVendasInvalidas;
         private List<String> ArquivosDaPastaDeVendas;
 
-        readonly System.Timers.Timer _timerParaLerAPastaDeTemposETempos;
+        readonly System.Timers.Timer _timerParaLerAPastaDeTemposEmTempos;
         private readonly int NumeroDeArquivosParaAguardarAcumular = 15;
         private readonly int NumeroDeArquivosParaProcessarPorLote = 15;
         private readonly int TempoParaAguardarAteAProximaLeituraEmMilesimos = 3000;
@@ -28,9 +28,9 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         public AnalizadorDeVendas()
         {
             ArquivosDaPastaDeVendas = new List<String>();
-            _timerParaLerAPastaDeTemposETempos = new System.Timers.Timer(TempoParaAguardarAteAProximaLeituraEmMilesimos) { AutoReset = true };
-            _timerParaLerAPastaDeTemposETempos.Elapsed += (sender, eventArgs) => VerificarAcumuloDeArquivosEMandarParaProcessar();
-            _timerParaLerAPastaDeTemposETempos.Start();
+            _timerParaLerAPastaDeTemposEmTempos = new System.Timers.Timer(TempoParaAguardarAteAProximaLeituraEmMilesimos) { AutoReset = true };
+            _timerParaLerAPastaDeTemposEmTempos.Elapsed += (sender, eventArgs) => VerificarAcumuloDeArquivosEMandarParaProcessar();
+            _timerParaLerAPastaDeTemposEmTempos.Start();
 
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
