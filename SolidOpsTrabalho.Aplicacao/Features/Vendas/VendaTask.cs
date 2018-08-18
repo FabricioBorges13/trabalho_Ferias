@@ -41,6 +41,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             CaminhoDoArquivoSendoAnalizado = caminho;
             var leitura = Task.Run(() => LerArquivo(caminho));
             leitura.Wait();
+            Console.WriteLine(nomeDoArquivo);
         }
 
         public void TaskValidarVenda(Venda venda)
