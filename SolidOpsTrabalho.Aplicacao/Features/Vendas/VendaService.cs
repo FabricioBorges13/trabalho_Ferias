@@ -18,8 +18,9 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             _repository = repository;
         }
 
-        public void Add(Venda venda)
+        public void Adicionar(Venda venda)
         {
+            venda.Validar();
             _repository.Adicionar(venda);
         }
         public List<string> ListarArquivos(string caminho)

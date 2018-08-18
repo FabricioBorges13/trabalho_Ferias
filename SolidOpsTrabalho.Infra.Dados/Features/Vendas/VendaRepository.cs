@@ -22,10 +22,5 @@ namespace SolidOpsTrabalho.Infra.Dados.Features.Vendas
             var newVenda = _context.Vendas.Add(venda);
             _context.SaveChanges();
         }
-
-        public IQueryable<Venda> ObterTodos()
-        {
-            return _context.Vendas;
-        }
     }
 }
