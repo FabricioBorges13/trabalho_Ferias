@@ -77,6 +77,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 
             foreach (var lote in lotesDeArquivos)
             {
+                //a linha abaixo está sublinhada para indicar que a chamada vai ser executado de forma assincrona
                 ProcessarLoteDeFormaAssincrona(lote);
             }
         }
