@@ -66,21 +66,28 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
                 var ArquivosASeremProcessados = ArquivosDaPastaDeVendas.ToList();
                 ArquivosDaPastaDeVendas.Clear();
 
-                DividirArquivosEmLotes(ArquivosASeremProcessados);             
+                ProcessarArquivos(ArquivosASeremProcessados);
+                     
             }
         }
 
-        public void DividirArquivosEmLotes(List<String> arquivos)
+        public void ProcessarArquivos(List<String> Arquivos)
         {
-            var lotesDeArquivos = arquivos.Select((value, index) => new { Index = index, Value = value })
-                   .GroupBy(x => x.Index / NumeroDeArquivosParaProcessarPorLote)
-                   .Select(g => g.Select(x => x.Value).ToList())
-                   .ToList();
+            var lotesDeArquivos = DividirArquivosEmLotes(Arquivos);
 
             foreach (var lote in lotesDeArquivos)
             {
                 ProcessarLoteDeFormaAssincrona(lote);
             }
+        }
+
+        public List<List<String>> DividirArquivosEmLotes(List<String> arquivos)
+        {
+            var lotesDeArquivos = arquivos.Select((value, index) => new { Index = index, Value = value })
+                   .GroupBy(x => x.Index / NumeroDeArquivosParaProcessarPorLote)
+                   .Select(g => g.Select(x => x.Value).ToList())
+                   .ToList();
+            return lotesDeArquivos;          
         }
 
         public async Task ProcessarLoteDeFormaAssincrona(List<String> arquivos)
