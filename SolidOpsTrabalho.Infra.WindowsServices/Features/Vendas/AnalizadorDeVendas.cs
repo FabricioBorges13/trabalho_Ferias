@@ -20,11 +20,12 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private string CaminhoPastaDeVendasInvalidas;
         private List<String> ArquivosDaPastaDeVendas;
         readonly System.Timers.Timer _timer;
+        private readonly int NumeroDeArquivosParaAguardarAcumular = 15;
+        private readonly int NumeroDeArquivosParaProcessarPorLote = 15;
 
         public AnalizadorDeVendas()
         {
             ArquivosDaPastaDeVendas = new List<String>();
-
             _timer = new System.Timers.Timer(3000) { AutoReset = true };
             _timer.Elapsed += (sender, eventArgs) => VerificarAcumuloDeArquivosEMandarParaProcessar();
             _timer.Start();
@@ -54,7 +55,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 
         public void VerificarAcumuloDeArquivosEMandarParaProcessar()
         {
-            if (ArquivosDaPastaDeVendas.Count > 15) {
+            if (ArquivosDaPastaDeVendas.Count > NumeroDeArquivosParaAguardarAcumular) {
                 foreach (var item in ArquivosDaPastaDeVendas)
                 {
                     Debug.WriteLine(item);
@@ -70,7 +71,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         public void DividirArquivosEmLotes(List<String> arquivos)
         {
             var lotesDeArquivos = arquivos.Select((value, index) => new { Index = index, Value = value })
-                   .GroupBy(x => x.Index / 15)
+                   .GroupBy(x => x.Index / NumeroDeArquivosParaProcessarPorLote)
                    .Select(g => g.Select(x => x.Value).ToList())
                    .ToList();
 
