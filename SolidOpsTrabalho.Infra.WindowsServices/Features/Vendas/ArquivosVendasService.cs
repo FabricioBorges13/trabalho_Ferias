@@ -16,7 +16,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         public TownCrier()
         {
             var vendas = new AnalizadorDeVendas();
-            vendas.Watch();
+            vendas.ObservadorDePasta();
 
             _timer = new Timer(1000) { AutoReset = true };
              //_timer.Elapsed += (sender, eventArgs) => Console.WriteLine("It is {0} and all is well", DateTime.Now);

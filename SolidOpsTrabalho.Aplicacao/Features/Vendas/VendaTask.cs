@@ -42,6 +42,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             CaminhoDoArquivoSendoAnalizado = caminho;
             var leitura = Task.Run(() => LerArquivo(caminho));
             leitura.Wait();
+            Console.WriteLine(nomeDoArquivo);
         }
 
         public void TaskValidarVenda(Venda venda)
@@ -65,24 +66,18 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
 
         private void ValidarVenda(Venda venda)
         {
-            bool valida = false;
-            var x = venda.Validar();
+
+            bool x = venda.Validar();
             int i = 0;
-            while (!valida)
+             while(!x  && i < 3)
             {
-                if (venda == null || !x || i > 2)
-                {
-                    TaskMoverInvalida(venda);
-                    
-                }
-                   
-                else
-                {
-                    TaskMoverValida(venda);
-                    break;
-                }
-                    
+                x = venda.Validar();
+                i++;
             }
+            if (!x)
+                TaskMoverInvalida(venda);
+            else
+                TaskMoverValida(venda);
                       
         }
 

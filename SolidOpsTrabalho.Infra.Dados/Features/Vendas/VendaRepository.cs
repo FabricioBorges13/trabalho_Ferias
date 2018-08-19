@@ -19,7 +19,7 @@ namespace SolidOpsTrabalho.Infra.Dados.Features.Vendas
 
         public void Adicionar(Venda venda)
         {
-            var newVenda = _context.Vendas.Add(venda);
+            _context.Vendas.Add(venda);
             _context.SaveChanges();
         }
     }

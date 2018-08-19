@@ -3,11 +3,13 @@ using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+ using System.Timers;
 
 namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 {
@@ -16,73 +18,92 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private string CaminhoPastaDeVendas;
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
+        private List<String> ArquivosDaPastaDeVendas;
+
+        readonly System.Timers.Timer _timerParaLerAPastaDeTemposEmTempos;
+        private readonly int NumeroDeArquivosParaAguardarAcumular = 15;
+        private readonly int NumeroDeArquivosParaProcessarPorLote = 15;
+        private readonly int TempoParaAguardarAteAProximaLeituraEmMilesimos = 3000;
 
         public AnalizadorDeVendas()
         {
+            ArquivosDaPastaDeVendas = new List<String>();
+            _timerParaLerAPastaDeTemposEmTempos = new System.Timers.Timer(TempoParaAguardarAteAProximaLeituraEmMilesimos) { AutoReset = true };
+            _timerParaLerAPastaDeTemposEmTempos.Elapsed += (sender, eventArgs) => VerificarAcumuloDeArquivosEMandarParaProcessar();
+            _timerParaLerAPastaDeTemposEmTempos.Start();
+
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
         }
-        public void Watch()
+        public void ObservadorDePasta()
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = CaminhoPastaDeVendas;
-            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-           | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            watcher.NotifyFilter = NotifyFilters.FileName;
 
             watcher.Filter = "*.csv";
-            //watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
+            //.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.Created += new FileSystemEventHandler(EventoDeAlteracao);
 
             watcher.EnableRaisingEvents = true;
         }
 
-        private void OnChanged(object sender, FileSystemEventArgs e)
-        {
-            DirectoryInfo pasta = new DirectoryInfo(CaminhoPastaDeVendas);
-            FileInfo[] Files = pasta.GetFiles("*.csv");
-            Console.WriteLine("CHAMOU EVENTO!");
-            var i = 1;
-            foreach (FileInfo file in Files)
-            {
-                i++;
-                if (WaitForFile(file))
-                {
-                    Console.WriteLine(file.Name);
-                    Console.WriteLine(i);
-                    var task = new VendaTask();
-                    task.TaskLeitura(CaminhoPastaDeVendas + "\\" + file.Name, file.Name);
 
-                } else
-                {
-                    throw new Exception();
-                }
-            }
-           
+        private void EventoDeAlteracao(object sender, FileSystemEventArgs e)
+        {
+            ArquivosDaPastaDeVendas.Add(e.Name);
         }
 
-        private bool WaitForFile(FileInfo file)
+        public void VerificarAcumuloDeArquivosEMandarParaProcessar()
         {
-            FileStream stream = null;
-            bool FileReady = false;
-            while (!FileReady)
-            {
-                try
+            if (ArquivosDaPastaDeVendas.Count > NumeroDeArquivosParaAguardarAcumular) {
+                foreach (var item in ArquivosDaPastaDeVendas)
                 {
-                    using (stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                    {
-                        FileReady = true;
-                    }
+                    Debug.WriteLine(item);
                 }
-                catch (IOException)
-                {
-                    //File isn't ready yet, so we need to keep on waiting until it is.
-                }
-                //We'll want to wait a bit between polls, if the file isn't ready.
-                if (!FileReady) Thread.Sleep(1000);
-            }
+               
+                var ArquivosASeremProcessados = ArquivosDaPastaDeVendas.ToList();
+                ArquivosDaPastaDeVendas.Clear();
 
-            return FileReady;
+                ProcessarArquivos(ArquivosASeremProcessados);
+                     
+            }
         }
+
+        public void ProcessarArquivos(List<String> Arquivos)
+        {
+            var lotesDeArquivos = DividirArquivosEmLotes(Arquivos);
+
+            foreach (var lote in lotesDeArquivos)
+            {
+                //a linha abaixo está sublinhada para indicar que a chamada vai ser executado de forma assincrona
+                ProcessarLoteDeFormaAssincrona(lote);
+            }
+        }
+
+        public List<List<String>> DividirArquivosEmLotes(List<String> arquivos)
+        {
+            var lotesDeArquivos = arquivos.Select((value, index) => new { Index = index, Value = value })
+                   .GroupBy(x => x.Index / NumeroDeArquivosParaProcessarPorLote)
+                   .Select(g => g.Select(x => x.Value).ToList())
+                   .ToList();
+            return lotesDeArquivos;          
+        }
+
+        public async Task ProcessarLoteDeFormaAssincrona(List<String> arquivos)
+        {
+            await Task.Run(() => EnviarLoteParaLeituraEValidacao(arquivos));
+        }
+
+        public void EnviarLoteParaLeituraEValidacao(List<String> arquivos)
+        {
+            foreach (var arquivo in arquivos)
+            {
+                var task = new VendaTask();
+                task.TaskLeitura(CaminhoPastaDeVendas + "\\" + arquivo, arquivo);
+            }
+        }
+  
     }
 }
