@@ -38,14 +38,21 @@ namespace SolidOpsTrabalho.Apresentacao
 
         public void PopularListas()
         {
-            listBox1.DataSource = _service.ListarArquivos(CaminhoPastaDeVendas);
-            listBox2.DataSource = _service.ListarArquivos(CaminhoPastaDeVendasValidas);
-            listBox3.DataSource = _service.ListarArquivos(CaminhoPastaDeVendasInvalidas);
+             listBoxEntrada.DataSource = _service.ListarArquivos(CaminhoPastaDeVendas);
+             listBoxValido.DataSource = _service.ListarArquivos(CaminhoPastaDeVendasValidas);
+            listBoxMorto.DataSource = _service.ListarArquivos(CaminhoPastaDeVendasInvalidas);
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             PopularListas();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PopularListas();
+        }
+
     }
 }

@@ -21,8 +21,8 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         private List<String> ArquivosDaPastaDeVendas;
 
         readonly System.Timers.Timer _timerParaLerAPastaDeTemposEmTempos;
-        private readonly int NumeroDeArquivosParaAguardarAcumular = 15;
-        private readonly int NumeroDeArquivosParaProcessarPorLote = 15;
+        private readonly int NumeroDeArquivosParaAguardarAcumular = 20;
+        private readonly int NumeroDeArquivosParaProcessarPorLote = 20;
         private readonly int TempoParaAguardarAteAProximaLeituraEmMilesimos = 3000;
 
         public AnalizadorDeVendas()
@@ -57,11 +57,11 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
 
         public void VerificarAcumuloDeArquivosEMandarParaProcessar()
         {
-            if (ArquivosDaPastaDeVendas.Count > NumeroDeArquivosParaAguardarAcumular) {
-                foreach (var item in ArquivosDaPastaDeVendas)
-                {
-                    Debug.WriteLine(item);
-                }
+            if (ArquivosDaPastaDeVendas.Count >= NumeroDeArquivosParaAguardarAcumular) {
+                //foreach (var item in ArquivosDaPastaDeVendas)
+                //{
+                //    Debug.WriteLine(item);
+                //}
                
                 var ArquivosASeremProcessados = ArquivosDaPastaDeVendas.ToList();
                 ArquivosDaPastaDeVendas.Clear();

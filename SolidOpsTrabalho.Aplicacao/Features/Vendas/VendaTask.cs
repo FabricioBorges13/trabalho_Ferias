@@ -67,18 +67,17 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private void ValidarVenda(Venda venda)
         {
 
-            bool x = venda.Validar();
-            int i = 0;
-             while(!x  && i < 3)
-            {
-                x = venda.Validar();
-                i++;
-            }
-            if (!x)
-                TaskMoverInvalida(venda);
-            else
-                TaskMoverValida(venda);
-                      
+                bool x = venda.Validar();
+                int i = 0;
+                while (!x && i < 3)
+                {
+                    x = venda.Validar();
+                    i++;
+                }
+                if (!x)
+                    TaskMoverInvalida(venda);
+                else
+                    TaskMoverValida(venda);
         }
 
         private void LerArquivo(string caminho)
@@ -88,17 +87,14 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
             {
                var vendas = _CSVService.LeiturasDeDados(caminho);
 
-               if (vendas.Count > 1)
-                {
-                    venda = null;
-                } else
-                {
+               if (vendas.Count == 1)
+                {                
                     venda = vendas.LastOrDefault();
                 }
             }
             catch (Exception)
             {
-                venda = null;             
+                venda = new Venda();
             }
                      
             TaskValidarVenda(venda);
