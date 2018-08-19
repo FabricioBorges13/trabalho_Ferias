@@ -1,14 +1,9 @@
 ﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
 using SolidOpsTrabalho.Infra.CSV;
-using SolidOpsTrabalho.Infra.Dados.Context;
-using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 
