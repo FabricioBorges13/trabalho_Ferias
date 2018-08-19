@@ -20,11 +20,11 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private string CaminhoPastaDeVendas;
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
-        VendaService _vendaService;
+        IVendaService _vendaService;
         string NomeDoArquivo;
         private string CaminhoDoArquivoSendoAnalizado;
 
-        public VendaTask(VendaService vendaService)
+        public VendaTask(IVendaService vendaService)
         {
             _vendaService = vendaService;
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];

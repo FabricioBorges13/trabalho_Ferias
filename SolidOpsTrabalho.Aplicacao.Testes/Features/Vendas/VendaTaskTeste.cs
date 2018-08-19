@@ -36,7 +36,7 @@ namespace SolidOpsTrabalho.Aplicacao.Testes.Features.Vendas
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
             _vendaService = new Mock<IVendaService>();
             _vendaRepositorio = new Mock<IVendaRepository>();
-            _vendaTask = new VendaTask();
+            _vendaTask = new VendaTask(_vendaService.Object);
             _csvService = new CSVService();
             _venda = new Mock<Venda>();
         }
