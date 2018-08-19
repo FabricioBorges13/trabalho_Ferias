@@ -1,5 +1,6 @@
 ﻿using SolidOpsTrabalho.Aplicacao.Features.Vendas;
 using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
+using SolidOpsTrabalho.Infra.WindowsServices.IoC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -100,7 +101,7 @@ namespace SolidOpsTrabalho.Infra.WindowsServices.Features.Vendas
         {
             foreach (var arquivo in arquivos)
             {
-                var task = new VendaTask();
+                var task = SimpleInjectorContainer.Initialize();
                 task.TaskLeitura(CaminhoPastaDeVendas + "\\" + arquivo, arquivo);
             }
         }

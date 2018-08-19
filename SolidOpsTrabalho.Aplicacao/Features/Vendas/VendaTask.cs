@@ -1,14 +1,9 @@
 ﻿using SolidOpsTrabalho.Dominio.Features.Vendas;
 using SolidOpsTrabalho.Infra.CSV;
-using SolidOpsTrabalho.Infra.Dados.Context;
-using SolidOpsTrabalho.Infra.Dados.Features.Vendas;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -20,15 +15,13 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         private string CaminhoPastaDeVendas;
         private string CaminhoPastaDeVendasValidas;
         private string CaminhoPastaDeVendasInvalidas;
-        VendaService vendaService;
+        IVendaService _vendaService;
         string NomeDoArquivo;
         private string CaminhoDoArquivoSendoAnalizado;
 
-        public VendaTask()
+        public VendaTask(IVendaService vendaService)
         {
-            var context = new SolidOpsContext();
-            var repository = new VendaRepository(context);
-            vendaService = new VendaService(repository);
+            _vendaService = vendaService;
             CaminhoPastaDeVendas = ConfigurationManager.AppSettings["CaminhoPastaVendas"];
             CaminhoPastaDeVendasValidas = ConfigurationManager.AppSettings["CaminhoPastaVendasValidas"];
             CaminhoPastaDeVendasInvalidas = ConfigurationManager.AppSettings["CaminhoPastaVendasInvalidas"];
@@ -60,7 +53,7 @@ namespace SolidOpsTrabalho.Aplicacao.Features.Vendas
         public void TaskMoverValida(Venda venda)
         {
             var valida = Task.Run(() => MoverParaDiretorioDeVendasValidas());
-            vendaService.Adicionar(venda);
+            _vendaService.Adicionar(venda);
             valida.Wait();
         }
 
